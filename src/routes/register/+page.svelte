@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="grid place-items-center mt-4">
-			<button class="bg-[#1e96ff] px-6 py-2">Log in</button>
+			<button class="bg-[#1e96ff] px-6 py-2">Register</button>
 		</div>
 	</form>
 </div>

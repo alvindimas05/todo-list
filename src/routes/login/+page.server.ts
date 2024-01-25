@@ -2,6 +2,7 @@ import { connection } from '$lib/database';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { IUser } from './types';
+import Routes from '$lib/routes';
 
 export const load = (async () => {
     return {};
