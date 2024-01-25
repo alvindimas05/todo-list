@@ -1,5 +1,18 @@
-export interface TodoTaskData {
+import type { RowDataPacket } from "mysql2";
+
+export type StatusEnum = "dijadwalkan" | "dikerjakan" | "selesai";
+
+export interface TodoData {
     title: string;
-    time: Date;
+    status: StatusEnum;
+    hours: number;
+    minutes: number;
+}
+
+export interface TodoDatabase extends RowDataPacket {
+    id: number;
+    title: string;
+    time: string;
     status: string;
+    user_id: string;
 }

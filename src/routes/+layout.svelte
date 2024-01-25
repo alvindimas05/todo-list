@@ -1,4 +1,5 @@
 <script lang="ts">
+	import "$lib/axios-config";
 	import './styles.scss';
 </script>
 

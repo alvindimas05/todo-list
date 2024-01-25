@@ -1,4 +1,5 @@
 const Routes = {
+    base_url: "http://localhost:5173",
     home: "/",
     user: {
         login: "/login",
@@ -6,8 +7,10 @@ const Routes = {
     },
     api: {
         todo: {
+            get: '/api/todo',
+            post: '/api/todo',
         }
-    }
+    },
 }
 
 export default Routes;

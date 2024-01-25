@@ -1,4 +1,4 @@
-import { connection } from '$lib/database';
+import database from '$lib/database';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { IUser } from './types';
@@ -16,7 +16,7 @@ export const actions = {
 
         if(username === "" || password === "") return { success: false, error: "empty_inputs" };
 
-        const [results, _fields] = await connection.query<IUser[]>("SELECT id FROM users WHERE username=? AND password=?", [username, password]);
+        const [results, _fields] = await database.query<IUser[]>("SELECT id FROM users WHERE username=? AND password=?", [username, password]);
         const success = results.length > 0;
 
         if(!success) return { success, error: "wrong_credentials" }; 

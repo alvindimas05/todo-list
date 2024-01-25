@@ -24,6 +24,7 @@
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "@zerodevx/svelte-toast": "^0.9.5",
     "autoprefixer": "^10.4.17",
     "dotenv": "^16.3.2",
     "eslint": "^8.56.0",
@@ -41,6 +42,7 @@
   },
   "dependencies": {
     "@fortawesome/pro-solid-svg-icons": "git+https://github.com/alvindimas05/pro-solid-svg-icons.git",
+    "axios": "^1.6.6",
     "mysql2": "^3.7.1",
     "sass": "^1.70.0",
     "svelte-fa": "^4.0.2"
