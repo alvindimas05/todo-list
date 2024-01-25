@@ -15,7 +15,7 @@
 		<div class="grid place-items-center">
 			<div class="mt-4">
 				<input
-					class="p-2 w-[20rem] bg-[#404040] outline-non	e focus:border-[1px] border-white"
+					class="p-2 w-[20rem] bg-[#404040] outline-none focus:border-[1px] border-white"
 					type="text"
 					name="username"
 					placeholder="Username"
