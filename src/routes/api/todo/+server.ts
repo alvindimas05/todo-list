@@ -46,10 +46,10 @@ export const PUT: RequestHandler = async ({ request, cookies, url }) => {
 		data.title,
 		time,
 		data.status,
-		url.searchParams.get("id"),
+		url.searchParams.get('id'),
 		cookies.get('user_id')
 	]);
-	
+
 	return json({ success: true });
 };
 
