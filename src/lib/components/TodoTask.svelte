@@ -13,12 +13,12 @@
 
 	let title = data ? data.title : '';
 	let status: StatusEnum;
-	let hours: string = data?.hours.toString() ?? "0";
-	let minutes: string = data?.minutes.toString() ?? "0";
+	let hours: string = data?.hours.toString() ?? '0';
+	let minutes: string = data?.minutes.toString() ?? '0';
 
 	async function addTodo() {
-		if(title === ""){
-			toast.push("Judul tidak boleh kosong!");
+		if (title === '') {
+			toast.push('Judul tidak boleh kosong!');
 			return;
 		}
 
@@ -30,21 +30,23 @@
 			hours: parseInt(hours)
 		};
 		await axios.post(Routes.api.todo.post, postData);
-		toast.push("Todo berhasil ditambahkan!");
+		toast.push('Todo berhasil ditambahkan!');
 		dispatch('refetch');
 	}
 
 	async function deleteTodo() {
 		await axios.delete(`${Routes.api.todo.delete}?id=${data!.id}`);
-		toast.push("Todo berhasil dihapus!");
+		toast.push('Todo berhasil dihapus!');
 		dispatch('refetch');
 	}
 </script>
 
-<div class="w-full rounded-full p-5 mt-3 grid grid-cols-2"
-	class:bg-gray-700={status === "dijadwalkan"}
-	class:bg-blue-900={status === "dikerjakan"}
-	class:bg-green-900={status === "selesai"}>
+<div
+	class="w-full rounded-full p-5 mt-3 grid grid-cols-2"
+	class:bg-gray-700={status === 'dijadwalkan'}
+	class:bg-blue-900={status === 'dikerjakan'}
+	class:bg-green-900={status === 'selesai'}
+>
 	<div>
 		<input
 			class="text-xl bg-transparent outline-none"
