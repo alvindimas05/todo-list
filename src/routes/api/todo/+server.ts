@@ -38,6 +38,21 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 	return json({ success: true });
 };
 
+export const PUT: RequestHandler = async ({ request, cookies, url }) => {
+	const data: TodoData = await request.json();
+	const time = `${data.hours}:${data.minutes}:00`;
+
+	await database.query('UPDATE todos SET title=?, time=?, status=? WHERE id=? AND user_id=?', [
+		data.title,
+		time,
+		data.status,
+		url.searchParams.get("id"),
+		cookies.get('user_id')
+	]);
+	
+	return json({ success: true });
+};
+
 export const DELETE: RequestHandler = async ({ url, cookies }) => {
 	await database.query('DELETE FROM todos WHERE id=? AND user_id=?', [
 		url.searchParams.get('id'),

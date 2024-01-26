@@ -34,6 +34,24 @@
 		dispatch('refetch');
 	}
 
+	async function editTodo() {
+		if (title === '') {
+			toast.push('Judul tidak boleh kosong!');
+			return;
+		}
+
+		const postData: TodoData = {
+			id: data?.id ?? 0,
+			title,
+			status,
+			minutes: parseInt(minutes),
+			hours: parseInt(hours)
+		};
+		await axios.put(`${Routes.api.todo.post}?id=${data?.id}`, postData);
+		toast.push('Todo berhasil diedit!');
+		dispatch('refetch');
+	}
+
 	async function deleteTodo() {
 		await axios.delete(`${Routes.api.todo.delete}?id=${data!.id}`);
 		toast.push('Todo berhasil dihapus!');
@@ -95,7 +113,7 @@
 		</div>
 		<div class="flex justify-end mt-1">
 			{#if data}
-				<button>
+				<button on:click={editTodo}>
 					<Fa color="yellow" icon={faPen} size="lg" />
 				</button>
 				<button class="ms-2" on:click={deleteTodo}>

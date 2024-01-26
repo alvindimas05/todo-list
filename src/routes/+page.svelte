@@ -7,6 +7,7 @@
 	let todos: TodoData[] | null = null;
 
 	async function getTodos() {
+		todos = null;
 		todos = (await axios.get<TodoData[]>(Routes.api.todo.get)).data;
 	}
 	getTodos();
