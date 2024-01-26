@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { FormResponse } from './types';
 	import Messages from '$lib/messages';
+	import Routes from '$lib/routes';
 
 	export let form: null | FormResponse;
 	const messageError = Messages.login[form?.error as keyof typeof Messages.login] ?? null;
@@ -32,6 +33,7 @@
 		</div>
 		<div class="grid place-items-center mt-4">
 			<button class="bg-[#1e96ff] px-6 py-2">Log in</button>
+			<a class="mt-2 text-blue-400" href={Routes.user.register}>Belum punya akun?</a>
 		</div>
 	</form>
 </div>
