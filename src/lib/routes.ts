@@ -1,5 +1,5 @@
 const Routes = {
-    base_url: "http://localhost:5173",
+    base_url: import.meta.env.VITE_BASE_URL,
     home: "/",
     user: {
         login: "/login",
@@ -9,6 +9,7 @@ const Routes = {
         todo: {
             get: '/api/todo',
             post: '/api/todo',
+            delete: '/api/todo',
         }
     },
 }

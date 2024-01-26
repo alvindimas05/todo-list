@@ -3,6 +3,7 @@ import type { RowDataPacket } from "mysql2";
 export type StatusEnum = "dijadwalkan" | "dikerjakan" | "selesai";
 
 export interface TodoData {
+    id: number;
     title: string;
     status: StatusEnum;
     hours: number;

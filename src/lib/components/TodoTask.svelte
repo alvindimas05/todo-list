@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Fa from 'svelte-fa';
 	import type { StatusEnum, TodoData } from './types';
-	import { faPen, faPlusCircle } from '@fortawesome/pro-solid-svg-icons';
+	import { faPen, faPlusCircle, faTrash } from '@fortawesome/pro-solid-svg-icons';
 	import axios from 'axios';
 	import Routes from '$lib/routes';
 	import { createEventDispatcher } from 'svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let data: TodoData | null = null;
 
@@ -12,22 +13,38 @@
 
 	let title = data ? data.title : '';
 	let status: StatusEnum;
-	let minutes: string;
-	let hours: string;
+	let hours: string = data?.hours.toString() ?? "0";
+	let minutes: string = data?.minutes.toString() ?? "0";
 
 	async function addTodo() {
+		if(title === ""){
+			toast.push("Judul tidak boleh kosong!");
+			return;
+		}
+
 		const postData: TodoData = {
+			id: data?.id ?? 0,
 			title,
 			status,
 			minutes: parseInt(minutes),
 			hours: parseInt(hours)
 		};
 		await axios.post(Routes.api.todo.post, postData);
-		dispatch("refetch");
+		toast.push("Todo berhasil ditambahkan!");
+		dispatch('refetch');
+	}
+
+	async function deleteTodo() {
+		await axios.delete(`${Routes.api.todo.delete}?id=${data!.id}`);
+		toast.push("Todo berhasil dihapus!");
+		dispatch('refetch');
 	}
 </script>
 
-<div class="w-full bg-gray-700 rounded-full p-5 mt-3 grid grid-cols-2">
+<div class="w-full rounded-full p-5 mt-3 grid grid-cols-2"
+	class:bg-gray-700={status === "dijadwalkan"}
+	class:bg-blue-900={status === "dikerjakan"}
+	class:bg-green-900={status === "selesai"}>
 	<div>
 		<input
 			class="text-xl bg-transparent outline-none"
@@ -44,11 +61,7 @@
 						bind:value={hours}
 					>
 						{#each Array(24) as _, i}
-							{#if data && data.hours === i}
-								<option value={i} selected>{i < 10 ? '0' : ''}{i}</option>
-							{:else}
-								<option value={i}>{i < 10 ? '0' : ''}{i}</option>
-							{/if}
+							<option value={i.toString()}>{i < 10 ? '0' : ''}{i}</option>
 						{/each}
 					</select>
 					:
@@ -58,11 +71,7 @@
 						bind:value={minutes}
 					>
 						{#each Array(60) as _, i}
-							{#if data && data.minutes === i}
-								<option value={i} selected>{i < 10 ? '0' : ''}{i}</option>
-							{:else}
-								<option value={i}>{i < 10 ? '0' : ''}{i}</option>
-							{/if}
+							<option value={i.toString()}>{i < 10 ? '0' : ''}{i}</option>
 						{/each}
 					</select>
 				</div>
@@ -85,7 +94,10 @@
 		<div class="flex justify-end mt-1">
 			{#if data}
 				<button>
-					<Fa color="yellow" icon={faPen} size="lg"/>
+					<Fa color="yellow" icon={faPen} size="lg" />
+				</button>
+				<button class="ms-2" on:click={deleteTodo}>
+					<Fa color="red" icon={faTrash} size="lg" />
 				</button>
 			{:else}
 				<button on:click={addTodo}>

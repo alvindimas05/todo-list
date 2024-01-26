@@ -10,10 +10,11 @@ export const GET: RequestHandler = async ({ cookies }) => {
         const timeSplit = todo_db.time.split(":");
 
         let todo: TodoData = {
+            id: todo_db.id,
             title: todo_db.title,
             status: todo_db.status as StatusEnum,
             hours: parseInt(timeSplit[0]),
-            minutes: parseInt(timeSplit[0]),
+            minutes: parseInt(timeSplit[1]),
         };
         return todo;
     });
@@ -26,5 +27,10 @@ export const POST: RequestHandler = async({ request, cookies }) => {
 
     await database.query("INSERT INTO todos (title, time, status, user_id) VALUES (?, ?, ?, ?)", [data.title, time, data.status, cookies.get("user_id")]);
 
+    return json({ success: true });
+};
+
+export const DELETE: RequestHandler = async({ url, cookies }) => {
+    await database.query("DELETE FROM todos WHERE id=? AND user_id=?", [url.searchParams.get("id"), cookies.get("user_id")]);
     return json({ success: true });
 };
